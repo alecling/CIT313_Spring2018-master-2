@@ -1,28 +1,39 @@
 <?php
 
-function loadClass($class) {
+//access to subclasses
+//require_once 'application/load.class.php';
+//require_once 'application/models/model.class.php';
+//require_once 'application/models/user.class.php';
+//require_once 'application/controllers/controller.class.php';
 
-    $pathControl = 'application/controllers/' . strtolower($class) . '.class.php';
-    $pathLibs = 'application/libs/' . strtolower($class) . '.class.php';
-    $pathModels = 'application/models/' . strtolower($class) . '.class.php';
-    $path = 'application/'. strtolower($class) . '.class.php';
+function myLoad($class) {
 
-    if (file_exists($pathControl)) {
-        require_once $pathControl;
-    }
-    elseif (file_exists($pathLibs)) {
-        require_once $pathLibs;
-    }
-    elseif (file_exists($pathModels )) {
-        require_once $pathModels ;
-    }
-    elseif (file_exists($path)) {
-        require_once $path;
-    }
+    $controllers = 'application/controllers/' . strtolower($class) . '.class.php';
+    $models = 'application/models/' . strtolower($class) . '.class.php';
+	$load = 'application/load/' . strtolower($class) . '.class.php';
+    $rout = 'application/'. strtolower($class) . '.class.php';
+	
+	
 
+	if (file_exists($controllers)) {
+   		require_once $controllers;
+	}	
+	elseif (file_exists($models)) {
+		require_once $models;
+	}
+	
+	elseif (file_exists($load)) {
+		require_once $load;
+	}
+	
+	elseif (file_exists($rout)) {
+		require_once $rout;
+}	
+		
 }
 
-spl_autoload_register('loadClass');
+
+spl_autoload_register('myLoad');
 
 
 new Controller();
